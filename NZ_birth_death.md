@@ -194,12 +194,12 @@ WITH birth_death_temp AS(
            ORDER BY year;
 ```
 
-![image](https://user-images.githubusercontent.com/53164959/63260677-8b680100-c2bc-11e9-8ec0-541fe3ec58d1.png)
+![image](https://user-images.githubusercontent.com/53164959/63261275-11d11280-c2be-11e9-84d7-7144bc44b3c7.png)
 
-[table] The First 6 Entries of the Final Outcome 
+[table] The First 8 Entries of the Final Outcome 
  
   
-![image](https://user-images.githubusercontent.com/53164959/63260919-2a8cf880-c2bd-11e9-8a54-d257dd115f85.png)
+![image](https://user-images.githubusercontent.com/53164959/63261198-ce76a400-c2bd-11e9-870a-66b28b077965.png)
 
 [table] The Last 6 Entires of The Final Outcome 
 
