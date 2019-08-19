@@ -16,7 +16,7 @@ each grounded by sex. The period in which data were recorded ranges from 2000 to
 
 ## 2.Data Handling 
 
-### 2.1 Subtotal of Each Year and Grand Total Row
+
 
 Given that one of your immediate supervisors is curious about the total number of population separated by genders on a yearly base. 
 He also appreciates your presenting total counts of male and female, respectively along with the total number of males and females. 
