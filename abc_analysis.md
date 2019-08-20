@@ -99,7 +99,7 @@ Lastly, we are on step 4 to prepare a table to organize all the information we a
                              100 AS quantity_percentage, 100 AS cost_percentage
                               FROM abc_analysis)
   ```               
-  The whole code is fllowing below 
+  The whole code is following below 
   
   ```sql
                    
