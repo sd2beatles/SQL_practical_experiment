@@ -101,7 +101,7 @@ Lastly, we are on step 4 to prepare a table to organize all the information we a
   ```               
   The whole code is fllowing below 
   
-  ``sql
+  ```sql
                    
     WITH statics_cost AS(
      SELECT sku_number,
