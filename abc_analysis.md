@@ -43,31 +43,32 @@ Some irrelevant information included in the original data should be filtered out
 Create a subquery to contain cost per unit,quantity demand, total expenditure and the proportion of each cost to the total sum.  All this information is referenced to cum_rate_cost for calculating the cumulative sum of cost percentage. Up to this point, the order does not matter at all since our attention is placed on the computation of cumulative cost and its percentage. 
 
 ```sql
-
-SELECT * FROM sales;
-
 WITH statics_cost AS(
      SELECT sku_number,
             pricereg,
             itemcount,
-            ROUND(CAST(pricereg*itemcount AS NUMERIC),2) AS cost,
-            100*(pricereg*itemcount)/SUM(pricereg*itemcount) OVER()  AS composition_rate -- cumu
-            FROM sales),
-      cum_rate_cost AS(
+            CAST(pricereg*itemcount AS NUMERIC) AS cost, --Calculate the additive cost per SKU
+            100*(pricereg*itemcount)/SUM(pricereg*itemcount)OVER()   AS composition_rate 
+            FROM sales)
+      ,cum_rate_cost AS(
       SELECT sku_number,
              pricereg,
              itemcount,
              cost,
              composition_rate,
-             SUM(composition_rate) OVER(ORDER BY composition_rate rows BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_rate
-             FROM statics_cost)
+             -- the running percentage of cumulative cost per SKU
+             100*SUM(cost) OVER(ORDER BY cost DESC)/SUM(cost) OVER() AS cumulative_rate, 
+             --Alternatively, we could use a window function to compute cmulative_rate
+             --SUM(composition_rate) OVER(ORDER BY composition_rate rows BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_rate
+          FROM statics_cost)
+
 ```
+Under the abc_analysis subquery, we will divide the inventories into three different class based on the cumulative sum of percentage. 
+We will do this by using the boundary ranges we previously set up when categorizing them. 
              
              
-             
-             
-             
-       ,abc_analysis as(SELECT sku_number,
+ ```sql            
+   abc_analysis as(SELECT sku_number,
               pricereg,
               itemcount,
               cost,
@@ -79,18 +80,74 @@ WITH statics_cost AS(
                    END AS abc_rank
               FROM cum_rate_cost 
               ORDER BY cumulative_rate)
-         ,test_result AS(SELECT abc_rank AS class,
+```  
+ 
+Lastly, we are on step 4 to prepare a table to organize all the information we acquire.  One last challenging task we should face is to add an entry having column information about total demand items, total cost-burdened by the company, the total cumulative percentage of each of the formers, respectively.  This insertion should be made row-wise and we use union all function to implement it.
+    
+ ```sql             
+ test_result AS(SELECT abc_rank AS class,
               SUM(sku_number) AS total_sku,
               SUM(cost) AS total_cost,
+              --cumulative sum of the running quantity
               ROUND(CAST(100*SUM(sku_number)/SUM(SUM(sku_number)) OVER() AS NUMERIC),0)  AS quantity_percentage,
+              -cumulative sum of the running cost_percentage
               ROUND(CAST(100*SUM(cost)/SUM(SUM(cost)) OVER() AS NUMERIC),0) AS cost_percentage
               FROM abc_analysis 
               GROUP BY abc_rank
+                   --overall information added row-wise
                    UNION ALL SELECT 'Total' AS abc_rank, SUM(sku_number) AS total_sku,SUM(cost) AS total_cost,
-                                     100 AS quantity_percentage, 100 AS cost_percentage
-                   FROM abc_analysis)
-           SELECT class,total_sku,total_cost,CONCAT(quantity_percentage||'%') AS quantity_percentage,CONCAT(cost_percentage||'%') AS                       cost_percentage
+                             100 AS quantity_percentage, 100 AS cost_percentage
+                              FROM abc_analysis)
+  ```               
+  The whole code is fllowing below 
+  
+  ``sql
+                   
+    WITH statics_cost AS(
+     SELECT sku_number,
+            pricereg,
+            itemcount,
+            CAST(pricereg*itemcount AS NUMERIC) AS cost, --Calculate the additive cost per SKU
+            100*(pricereg*itemcount)/SUM(pricereg*itemcount)OVER()   AS composition_rate 
+            FROM sales)
+      ,cum_rate_cost AS(
+      SELECT sku_number,
+             pricereg,
+             itemcount,
+             cost,
+             composition_rate,
+             -- the running percentage of cumulative cost per SKU
+             100*SUM(cost) OVER(ORDER BY cost DESC)/SUM(cost) OVER() AS cumulative_rate
+             --Alternatively, we could use a window function to compute cmulative_rate
+             --SUM(composition_rate) OVER(ORDER BY composition_rate rows BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_rate
+          FROM statics_cost)
+          ,abc_analysis as(SELECT sku_number,
+              pricereg,
+              itemcount,
+              cost,
+              composition_rate AS composition_rate,
+              cumulative_rate,
+              CASE WHEN cumulative_rate BETWEEN 0 AND 60 THEN 'A'
+                   WHEN cumulative_rate BETWEEN 60 AND 85 THEN 'B'
+                   WHEN cumulative_rate BETWEEN 85 AND 100.1 THEN 'C'
+                   END AS abc_rank
+              FROM cum_rate_cost 
+              ORDER BY cumulative_rate)
+              ,test_result AS(SELECT abc_rank AS class,
+              SUM(sku_number) AS total_sku,
+              SUM(cost) AS total_cost,
+              --cumulative sum of the running quantity
+              ROUND(CAST(100*SUM(sku_number)/SUM(SUM(sku_number)) OVER() AS NUMERIC),0)  AS quantity_percentage,
+              --cumulative sum of the running cost_percentage
+              ROUND(CAST(100*SUM(cost)/SUM(SUM(cost)) OVER() AS NUMERIC),0) AS cost_percentage
+              FROM abc_analysis 
+              GROUP BY abc_rank
+                   --overall information added row-wise
+                   UNION ALL SELECT 'Total' AS abc_rank, SUM(sku_number) AS total_sku,SUM(cost) AS total_cost,
+                             100 AS quantity_percentage, 100 AS cost_percentage
+                              FROM abc_analysis)
+               SELECT class,total_sku,total_cost,CONCAT(quantity_percentage||'%') AS quantity_percentage,CONCAT(cost_percentage||'%') AS                       cost_percentage
                   FROM test_result
-                  ORDER BY class;
+                  ORDER BY class
                   
 ```
