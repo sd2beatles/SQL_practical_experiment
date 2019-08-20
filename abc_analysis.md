@@ -151,3 +151,13 @@ Lastly, we are on step 4 to prepare a table to organize all the information we a
                   ORDER BY class
                   
 ```
+
+### 4. Summarizing Results
+
+Now the following table includes summry results of the three different classes
+
+![image](https://user-images.githubusercontent.com/53164959/63314414-82217780-c342-11e9-94a6-bf5ab6dc5db2.png)
+
+Category A items represent 10% of an overall inventory by item and represent 60% of value of an inventory. Category B items represent 24% of inventory items by item, and about 25% of the value. Finally, Category C items represent 67% of actual items but only 15% of the inventory value.
+
+
