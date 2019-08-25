@@ -54,3 +54,4 @@ plt.ylabel("Sales rate(%)",fontsize=15)
 plt.xlabel("Month",fontsize=14)
 plt.title("Fan Chart: Sales in 2019",fontsize=15)
 ```
+![image](https://user-images.githubusercontent.com/53164959/63651252-cd49e900-c78d-11e9-88bb-ae87b9a2486a.png)
