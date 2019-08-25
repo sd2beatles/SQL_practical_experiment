@@ -43,15 +43,14 @@ import seaborn as sns
 data=pd.read_csv(r"\test.csv")
 data["rate"]=round(data["rate"]
 ```
+![image](https://user-images.githubusercontent.com/53164959/63651180-22d1c600-c78d-11e9-943b-7f25671a274d.png)
 
 
 ```python
-sns.set()
-test=data.pivot_table("rate",index="year_month",columns="product_line")
-test.index=['January','Feburary','March']
 fig, ax = plt.subplots(figsize=(10, 6))
 test.plot(ax=ax,kind='line',marker='.')
 plt.legend(loc="best")
-plt.ylabel("Sales rate(%)")
-plt.xlabel("Month")
+plt.ylabel("Sales rate(%)",fontsize=15)
+plt.xlabel("Month",fontsize=14)
+plt.title("Fan Chart: Sales in 2019",fontsize=15)
 ```
