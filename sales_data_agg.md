@@ -125,9 +125,9 @@ def histogram_drawing(data):
         axs[m[0],m[1]].set_title("Histgram for "+k,fontsize=16)
         axs[m[0],m[1]].set_ylabel("Freuency")
         axs[m[0],m[1]].set_xlabel("bins")
-               
+  histogram_drawing(data2)              
+```
 
- histogram_drawing(data2)
  ![image](https://user-images.githubusercontent.com/53164959/63684076-012d1900-c837-11e9-80d7-10ffc7469c69.png)
 
         
