@@ -1,0 +1,49 @@
+```sql
+
+
+WITH data_modified AS(
+       SELECT age,
+          CASE WHEN gender<>'male' THEN 'M'
+               WHEN gender<>'female' THEN 'F' END AS gender, --conversion of labels 
+           tenure,
+           --classify tenure into ten differnt sub-divisions 
+           (tenure-MIN(tenure) OVER())/((MAX(tenure) OVER()+1-MIN(tenure) OVER())/10)+1 AS tenure_category,
+           likes,
+           likes_received,
+           mobile_likes,
+           mobile_likes_received,
+           www_likes,
+           www_likes_received
+           FROM facebooktbl
+           --We take a closer insight into information grouped by gender and age_group. 
+           --any entires which do not provide either gener or age are automatically excluded. 
+           WHERE facebooktbl IS NOT NULL),
+     age_grouped AS(
+         SELECT CONCAT(CASE WHEN age<19 THEN ''
+                             ELSE gender END,
+                       CASE WHEN age BETWEEN 4 AND 12 THEN 'C'
+                            WHEN age BETWEEN 13 AND 19 THEN 'T'
+                            WHEN age BETWEEN 20 AND 34 THEN '1'
+                            WHEN age BETWEEN 35 AND 49 THEN '2'
+                            WHEN age >=50 THEN '3'END ) AS age_group,
+                 tenure,
+                 tenure_category, 
+                 likes,
+                 likes_received,
+                 mobile_likes,
+                 mobile_likes_received,
+                 www_likes,
+                 www_likes_received 
+                 FROM data_modified)
+        SELECT age_group,
+               COUNT(1) AS group_total,
+               SUM(likes) AS group_likes,
+               SUM(likes_received) AS group_likes_received,
+               SUM(mobile_likes) AS group_mobile_likes,
+               SUM(mobile_likes_received) AS group_mobile_likes,
+               SUM(www_likes) AS group_www_likes,
+               SUM(www_likes_received) AS group_www_likes_received
+               FROM age_grouped
+               GROUP BY age_group
+               ORDER BY age_group;
+    ```
