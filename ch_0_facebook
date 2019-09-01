@@ -1,6 +1,7 @@
 ```sql
 
 
+
 WITH data_modified AS(
        SELECT age,
           CASE WHEN gender<>'male' THEN 'M'
@@ -35,15 +36,24 @@ WITH data_modified AS(
                  www_likes,
                  www_likes_received 
                  FROM data_modified)
-        SELECT age_group,
-               COUNT(1) AS group_total,
-               SUM(likes) AS group_likes,
-               SUM(likes_received) AS group_likes_received,
-               SUM(mobile_likes) AS group_mobile_likes,
-               SUM(mobile_likes_received) AS group_mobile_likes,
-               SUM(www_likes) AS group_www_likes,
-               SUM(www_likes_received) AS group_www_likes_received
-               FROM age_grouped
-               GROUP BY age_group
-               ORDER BY age_group;
+           SELECT a.age_group, 
+                  a.tenure,
+                  a.tenure_category,
+                 -- rearranging all six colummns into the section of category and counts  
+                 CASE WHEN p.idx=1 THEN 'likes'
+                      WHEN p.idx=2 THEN 'likes_received'
+                      WHEN p.idx=3 THEN 'mobile_likes'
+                      WHEN P.idx=4 THEN 'mobile_likes_received'
+                      WHEN p.idx=5 THEN 'www_likes'
+                      WHEN p.idx=6 THEN 'www_likes_received' END AS category,
+                  CASE WHEN p.idx=1 THEN a.likes
+                       WHEN p.idx=2 THEN a.likes_received
+                       WHEN P.idx=3 THEN a.mobile_likes
+                       WHEN p.idx=4 THEN a.mobile_likes_received
+                       WHEN p.idx=5 THEN a.www_likes
+                       WHEN p.idx=6 THEN a.www_likes_received END AS counts
+                  FROM age_grouped AS a
+                  CROSS JOIN(
+                  SELECT GENERATE_SERIES(1,6) AS idx) AS p;
+
     ```
