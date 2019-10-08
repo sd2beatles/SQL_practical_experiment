@@ -117,7 +117,7 @@ WITH fourteen_days_interval(index_name,begin_date,end_date) AS(
  ```
  ![image](https://user-images.githubusercontent.com/53164959/66327098-357f1380-e965-11e9-9514-e01ab35e0570.png)
 
-``sql
+```sql
  WITH period (index_last,begin_date,end_date) AS(
      values ('28 days rentation',14,28)
             ),
@@ -159,5 +159,6 @@ WITH fourteen_days_interval(index_name,begin_date,end_date) AS(
               GROUP BY dt_counts
               ORDER BY dates;
 ```
+
 ![image](https://user-images.githubusercontent.com/53164959/66366698-4c0c8580-e9cc-11e9-9849-5d617c6cfe97.png)
 
