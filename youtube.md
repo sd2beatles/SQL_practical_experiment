@@ -117,4 +117,47 @@ WITH fourteen_days_interval(index_name,begin_date,end_date) AS(
  ```
  ![image](https://user-images.githubusercontent.com/53164959/66327098-357f1380-e965-11e9-9514-e01ab35e0570.png)
 
- 
+``sql
+ WITH period (index_last,begin_date,end_date) AS(
+     values ('28 days rentation',14,28)
+            ),
+     users_info AS(
+     SELECT video_id,
+            CAST(SUBSTRING(publish_time,1,10) AS DATE) AS publish_time,
+            CAST(trending_date AS DATE) AS trending_date, 
+            MAX(CAST(trending_date AS DATE)) OVER() AS latest_date
+            FROM youtube),
+     last_week_rentation AS(
+     SELECT video_id,
+            SIGN(SUM(CASE WHEN trending_date<=latest_date THEN 
+                 CASE WHEN trending_date BETWEEN publish_time+'1 day'::interval*p.begin_date
+                           AND publish_time+'1 day'::interval*p.end_date THEN 1 ELSE 0 END END)) AS rentation
+            FROM users_info AS u,period  AS p
+            GROUP BY video_id),  
+     first_week_use AS(
+        SELECT u.video_id,
+               COUNT(DISTINCT(u.trending_date)) AS counts
+               FROM users_info AS u,period AS p
+               WHERE u.trending_date BETWEEN u.publish_time+'1 day'::interval AND u.publish_time+'7 day'::interval
+               GROUP BY u.video_id,u.trending_date
+               ORDER BY u.video_id
+               ),
+     statics AS(
+           SELECT f.video_id,
+                  SUM(f.counts) AS dt_counts,
+                  l.rentation AS rentation
+           FROM first_week_use AS f
+                LEFT JOIN last_week_rentation AS l
+                ON f.video_id=l.video_id
+                GROUP BY  f.video_id,l.rentation
+                HAVING SUM(f.counts) <8)
+       SELECT DISTINCT(dt_counts) AS dates,
+              SUM(dt_counts) AS counts,
+              ROUND(CAST(SUM(dt_counts) AS NUMERIC)/SUM(SUM(dt_counts)) OVER()*100,2) as rate,
+              ROUND(CAST(AVG(100*rentation) AS NUMERIC),2) AS achieve_ratio
+              FROM statics 
+              GROUP BY dt_counts
+              ORDER BY dates;
+```
+![image](https://user-images.githubusercontent.com/53164959/66366698-4c0c8580-e9cc-11e9-9849-5d617c6cfe97.png)
+
