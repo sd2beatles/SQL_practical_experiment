@@ -162,7 +162,7 @@ WITH fourteen_days_interval(index_name,begin_date,end_date) AS(
 
 ![image](https://user-images.githubusercontent.com/53164959/66366698-4c0c8580-e9cc-11e9-9849-5d617c6cfe97.png)
 
-
+```sql
 WITH interval(index_name,index) AS(
     SELECT CONCAT(GENERATE_SERIES(1,12),'-month'), 
            GENERATE_SERIES(1,12)),
@@ -179,4 +179,5 @@ WITH interval(index_name,index) AS(
            FROM data_modified
            ORDER BY video_id,trending_date
            limit 100;
+```
   ![image](https://user-images.githubusercontent.com/53164959/66702690-31783a80-ed45-11e9-9441-2ff90ede7821.png)
