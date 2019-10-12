@@ -162,3 +162,21 @@ WITH fourteen_days_interval(index_name,begin_date,end_date) AS(
 
 ![image](https://user-images.githubusercontent.com/53164959/66366698-4c0c8580-e9cc-11e9-9849-5d617c6cfe97.png)
 
+
+WITH interval(index_name,index) AS(
+    SELECT CONCAT(GENERATE_SERIES(1,12),'-month'), 
+           GENERATE_SERIES(1,12)),
+    data_modified AS(
+    SELECT video_id,
+           MIN(CAST(trending_date AS DATE))  AS first_date_clicked,
+           CAST(trending_date AS DATE) AS trending_date,
+           MAX(CAST(trending_date AS DATE)) OVER() AS latest_date
+          FROM youtube
+          GROUP BY video_id,trending_date)
+    SELECT video_id,
+           first_date_clicked,
+           trending_date
+           FROM data_modified
+           ORDER BY video_id,trending_date
+           limit 100;
+  ![image](https://user-images.githubusercontent.com/53164959/66702690-31783a80-ed45-11e9-9441-2ff90ede7821.png)
