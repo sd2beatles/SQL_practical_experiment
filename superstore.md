@@ -73,6 +73,7 @@ WITH raw_superstore AS(
 ```
 
 ![image](https://user-images.githubusercontent.com/53164959/67255562-9823f380-f4bd-11e9-8aee-a3763c3a65e2.png)
+![image](https://user-images.githubusercontent.com/53164959/67256016-edf99b00-f4bf-11e9-8d17-77929893038f.png)
 
 
 
