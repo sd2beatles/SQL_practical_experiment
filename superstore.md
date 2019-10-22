@@ -86,26 +86,15 @@ The average day to prepare and send products is 3.96 days and except for peak se
 WITH raw_superstore AS(
     --refer to the previous section 
     ),
-    delivery_time AS(
-    SELECT 
-    order_id,
-    customer_id,
-    product_id,
-    order_date,
-    ship_date,
-    ship_mode,
-    CAST(ship_date AS DATE)-CAST(order_date AS DATE) AS delivery_time
-    FROM raw_superstore),
-    delivery_shipping AS(
-    SELECT DISTINCT ship_mode,
-           SUBSTRING(order_date,6,2) AS month,
-           CASE WHEN ROUND(CAST(AVG(delivery_time) AS NUMERIC),2) < 1 THEN 0
-                WHEN ROUND(CAST(AVG(delivery_time) AS NUMERIC),2)>=1 THEN ROUND(CAST(AVG(delivery_time) AS NUMERIC),2) END AS      
-                average_time
-           FROM delivery_time 
-           GROUP BY SUBSTRING(order_date,6,2),ship_mode)
-    SELECT * FROM delivery_shipping 
-             ORDER BY month,average_time;
-             
+ avg_by_mode AS(
+      SELECT Distinct ship_mode,
+             month,
+             ROUND(CAST(AVG(deliver_time) OVER(PARTITION BY month,ship_mode) AS NUMERIC),2) AS avg
+             FROM raw_superstore
+             ORDER BY month,avg)
+      SELECT ship_mode,
+             month,
+             CASE WHEN avg<1 THEN 0 ELSE AVG END AS avg_deliver 
+             FROM avg_by_mode;
 ```
 ![image](https://user-images.githubusercontent.com/53164959/67253995-9d7d4000-f4b5-11e9-8d48-0fc5434fb6bc.png)
