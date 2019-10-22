@@ -101,3 +101,7 @@ WITH raw_superstore AS(
 ```
 ![image](https://user-images.githubusercontent.com/53164959/67253995-9d7d4000-f4b5-11e9-8d48-0fc5434fb6bc.png)
 ![image](https://user-images.githubusercontent.com/53164959/67260264-76cf0180-f4d5-11e9-8820-c5107bc133df.png)
+
+One good news is that for customers who placed expedited orders the requested products were shipped on the day of order confirmed.  Even though there is a slight fluctuation of measures across the months,  the magnitude itself is not so huge we can assume that the service is deemed satisfactory. 
+
+
