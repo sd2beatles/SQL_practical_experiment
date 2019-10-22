@@ -38,6 +38,48 @@ CREATE TABLE public.superstore
 
 Many surveys suggest that among many factors responsible for business success, shortening delivery times has become a critical one to determine customer satisfaction.  Therefore, it is worthwhile to look into what features affect the delivery time and improvements over the current system. 
 
+##### 2.1.1 Monthly Deliver_Time
+```sql
+WITH raw_superstore AS(
+    -- replicate the original data and add dlivery_time(days to proceed and finish deliverying products from order date)
+    -- and the cost of sale
+    SELECT order_id,
+           customer_id,
+           product_id,
+           order_date,
+           ship_date,
+           ship_mode,
+           SUBSTRING(order_date,1,4) AS year,
+           SUBSTRING(order_date,6,2) AS month,
+           CAST(ship_date AS DATE)-CAST(order_date AS DATE) AS deliver_time,
+           segement,
+           country,
+           city,
+           state,
+           region,
+           category,
+           sub_category,
+           sales,
+           quantity,
+           profit,
+           (profit-sales*quantity) AS cost_sales
+           FROM superstore)
+      SELECT 
+             DISTINCT month,
+             ROUND(CAST(AVG(deliver_time) OVER(PARTITION BY month) AS NUMERIC),2) AS monthly_average,
+             ROUND(CAST(AVG(deliver_time) OVER() AS NUMERIC),2) AS toal_average 
+             FROM raw_superstore
+             ORDER BY month; 
+```
+
+![image](https://user-images.githubusercontent.com/53164959/67255562-9823f380-f4bd-11e9-8aee-a3763c3a65e2.png)
+
+
+
+
+
+
+
 
 ```sql
 WITH raw_superstore AS(
