@@ -80,5 +80,6 @@ WITH raw_superstore AS(
            GROUP BY SUBSTRING(order_date,6,2),ship_mode)
     SELECT * FROM delivery_shipping 
              ORDER BY month,average_time;
-   
+             
+```
 ![image](https://user-images.githubusercontent.com/53164959/67253995-9d7d4000-f4b5-11e9-8d48-0fc5434fb6bc.png)
