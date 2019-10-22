@@ -31,7 +31,7 @@ CREATE TABLE public.superstore
   discount real,
   profit real
 );
-
+```
 ### Chapter 2 Explore Data
 
 #### 2.1 Deliver Time
