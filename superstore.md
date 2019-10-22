@@ -76,10 +76,12 @@ WITH raw_superstore AS(
 ![image](https://user-images.githubusercontent.com/53164959/67256016-edf99b00-f4bf-11e9-8d17-77929893038f.png)
 
 
-The average day to prepare and send products is 3.96 days and except for peak seasons, most monthly figures are below the average. It seems to be inevitable to witness that the delivery lead time is higher than the average since volumes of package rise above the point where the company could handle at full capacity. 
+The average day to prepare and send products is 3.96 days from the confirmation of order and except for peak seasons, most monthly figures are below the average. It seems to be inevitable to witness that the delivery lead time is higher than the average since volumes of package rise above the point where the company could handle at full capacity. 
 
 
 
+
+#### 2.2 Shppping method and Time taken to ship 
 
 
 ```sql
@@ -98,3 +100,4 @@ WITH raw_superstore AS(
              FROM avg_by_mode;
 ```
 ![image](https://user-images.githubusercontent.com/53164959/67253995-9d7d4000-f4b5-11e9-8d48-0fc5434fb6bc.png)
+![image](https://user-images.githubusercontent.com/53164959/67260264-76cf0180-f4d5-11e9-8820-c5107bc133df.png)
