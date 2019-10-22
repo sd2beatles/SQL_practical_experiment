@@ -76,7 +76,7 @@ WITH raw_superstore AS(
 ![image](https://user-images.githubusercontent.com/53164959/67256016-edf99b00-f4bf-11e9-8d17-77929893038f.png)
 
 
-
+The average day to prepare and send products is 3.96 days and except for peak seasons, most monthly figures are below the average. It seems to be inevitable to witness that the delivery lead time is higher than the average since volumes of package rise above the point where the company could handle at full capacity. 
 
 
 
@@ -84,25 +84,8 @@ WITH raw_superstore AS(
 
 ```sql
 WITH raw_superstore AS(
-    -- replicate the original data and add the cost of sale 
-    SELECT order_id,
-           customer_id,
-           product_id,
-           order_date,
-           ship_date,
-           ship_mode,
-           segement,
-           country,
-           city,
-           state,
-           region,
-           category,
-           sub_category,
-           sales,
-           quantity,
-           profit,
-           (profit-sales*quantity) AS cost_sales
-           FROM superstore),
+    --refer to the previous section 
+    ),
     delivery_time AS(
     SELECT 
     order_id,
