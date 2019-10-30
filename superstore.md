@@ -151,3 +151,7 @@ ax.set_title('BarCharts for Monthly revenue and profit From 2014 to 2017',fontsi
 From the charts, three characteristics especially attract our attention. 
 First, the sales were growing over the time interval. The highest amount of revenue earned in 2017 reached almost 120 thousand, about a 50 % increase compared to in 2014. 
 
+Second, Be aware that there is a seasonal effect in some of the months a year.  We can see a dramatic increase in sales from October to November, followed by a massive fall from December to January of next year. The seasonal trend is highly predictable. Most companies begin to promote thier products and service massively and actively in November. We have black Friday on which many consumers become enamored with business strategies, leading to a boost in sales of companies.   The expenditure usually continues up to the end of December. The fall in sales from November to December of every year is predictable since many people decided to buy a bulk of products in advance to prepare for Christmas and New Year.  On the closer examination,  the magnitude of change of the figure is, however,  _exceptionally larger than any other interval_. 
+
+
+
