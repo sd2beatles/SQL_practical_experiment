@@ -32,7 +32,7 @@ CREATE TABLE public.superstore
   profit real
 );
 ```
-### Chapter 2 Explore Data
+### Chapter 2 Explore Data Analysis 
 
 #### 2.1 Deliver Time
 
@@ -104,4 +104,50 @@ WITH raw_superstore AS(
 
 One good news is that for customers who placed expedited orders the requested products were shipped on the day of order confirmed.  Even though there is a slight fluctuation of measures across the months,  the magnitude itself is not so huge we can assume that the service is deemed satisfactory. 
 
+#### 2.3 Financial Performance 
+
+Let's look at the financial performance for the last three years. 
+
+```sql
+WITH raw_superstore AS(
+    --refer to the previous section ),
+           year_monthly_figure AS(
+           SELECT year,
+                  month,
+                  SUM(sales)   AS sales,
+                  SUM(profit)  AS profit,
+                  SUM(SUM(sales)) OVER(ORDER BY year,month ROWS UNBOUNDED PRECEDING) AS agg_sales,
+                  SUM(SUM(profit)) OVER(ORDER BY year,month ROWS UNBOUNDED PRECEDING)AS agg_profit
+                  FROM raw_superstore
+                  GROUP BY year,month)
+           SELECT CONCAT(year,'-',month) AS year_month,
+                  sales,
+                  profit,
+                  agg_sales,
+                  agg_profit FROM year_monthly_figure;
+          
+  ```
+  
+  ```python
+result2=pd.read_csv(r'~\agg_sales_profit.csv')
+sns.set()
+fig,ax1=plt.subplots(figsize=(14,5))
+ax2=ax1.twinx()
+sns.barplot(x=result2.year_month,y=result2.sales,ax=ax1)
+sns.lineplot(x=result2.year_month,y=result2.agg_sales,ax=ax2,color='R',label='Aggregated_Sales')
+sns.lineplot(x=result2.year_month,y=result2.agg_profit,ax=ax2,color='B',label='Aggregate_profit')
+ax1.set_xticklabels(result2.year_month,rotation=90)
+ax.set_title('BarCharts for Monthly revenue and profit From 2014 to 2017',fontsize=16)
+```
+
+![image](https://user-images.githubusercontent.com/53164959/67847661-91911e00-fb46-11e9-8fb6-ffcf7e5cb49d.png)
+
+                 
+           
+
+
+
+
+From the charts, three characteristics especially attract our attention. 
+First, the sales were growing over the time interval. The highest amount of revenue earned in 2017 reached almost 120 thousand, about a 50 % increase compared to in 2014. 
 
