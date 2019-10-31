@@ -102,7 +102,7 @@ WITH raw_superstore AS(
 ![image](https://user-images.githubusercontent.com/53164959/67253995-9d7d4000-f4b5-11e9-8d48-0fc5434fb6bc.png)
 ![image](https://user-images.githubusercontent.com/53164959/67260264-76cf0180-f4d5-11e9-8820-c5107bc133df.png)
 
-One good news is that for customers who placed expedited orders the requested products were shipped on the day of order confirmed. Apart from the special delivery method, the plot lines show that the variablity of lead time is not so huge that  the magnitude itself is not so huge that the company may manage the latency under strict regularisation or in an effective manner.
+One good news is that for customers who placed expedited orders the requested products were shipped on the day of order confirmed. Apart from the special delivery method, the plot lines show that the variablity of lead time is not so huge that  the magnitude itself is not huge so that we can conclude that company have managed the latency under strict regularisation or in an effective manner.
 
 #### 2.3 Financial Performance 
 
@@ -153,7 +153,9 @@ First, the sales were growing over the time interval. The highest amount of reve
 
 Second, we are aware that there is seasonlaity in some of the months a year. There is a dramatic increase in sales from October to November, followed by a massive fall from December to January of next year. The seasonal trend is highly anticipated in that most companies begin to promote thier products and service massively and actively at the begin of November, trying thier conumser feel that thier products are inviting and attractive. This is maninly beacuse of _black Friday_ on which many consumers become enamored with business strategies, leading to a boost in sales of companies.   The expenditure usually continues up to the end of December. The fall in sales from November to December of every year is  predictable ; since many people decided to buy a bulk of products in advance to prepare for Christmas and New Year, consumers tend to be tight on budget for expenditure in December.  On the closer examination,  the magnitude of fall in values in the year of 2017 is, however,  _exceptionally larger than any other interval_.
 
-Third, The company did not enjoy the impressive moment in the year of 2014; as indicated by a blue line, for the first 10 months,  the aggregated amount did not show any glimpse of a rise but kept staying at 0. This reminds us that the company did not retain any gross profit at the begin of the time interval. However, the aggregated sum started to arise right after November.  
+Third, The financial performance of the year 2014 and the first quarter of 2015 was disappointing in that some months of this interval produced much lower profit than those of other years and could not show the stable profit-earning with the rate of change varying from month to month. Also, companies had shown unsatisfactory performance in two particular months of the time interval, one of which the size of profit loss was tremendously larger than anyone could expect.  This loss might have sent an unsatisfactory sign to the owner or interested parties. Fortunately, the same event did not repeat in the rest of the years. 
+
+
 
 
 
