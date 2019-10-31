@@ -195,4 +195,4 @@ ax.set_title('Gross profit Margin Over Three Consecutive Years',fontsize=20)
 
 ![image](https://user-images.githubusercontent.com/53164959/67909906-4a497280-fbc4-11e9-8bd6-3863a7fc8d3b.png)
 
- The information is consistent with the interpretation we had in the previous section. Narrowing our scope to the period from January 2014 to January 2015, the variability of around the mean is quite large with figures of a majority of months underperforming the average. After spending a year of depression, financial health becomes stronger since the first quarter of 2015, which is supported by less shifting up and down around the mean.   
+ The information is consistent with the interpretation we had in the previous section. Narrowing our scope to the period from January 2014 to January 2015, the variability of around the mean is quite large with figures of a majority of months underperforming the average. After spending a year of depression, financial health becomes stronger ever after, which is supported by less shifting up and down around it.   
