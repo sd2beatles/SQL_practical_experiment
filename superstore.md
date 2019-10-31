@@ -106,6 +106,8 @@ One good news is that for customers who placed expedited orders the requested pr
 
 #### 2.3 Financial Performance 
 
+##### 2.3.1 Sales Revnue and Profit
+
 Let's look at the financial performance for the last three years. 
 
 ```sql
@@ -156,6 +158,41 @@ Second, we are aware that there is seasonlaity in some of the months a year. The
 Third, The financial performance of the year 2014 and the first quarter of 2015 was disappointing in that some months of this interval produced much lower profit than those of other years and could not show the stable profit-earning with the rate of change varying from month to month. Also, companies had shown unsatisfactory performance in two particular months of the time interval, one of which the size of profit loss was tremendously larger than anyone could expect.  This loss might have sent an unsatisfactory sign to the owner or interested parties. Fortunately, the same event did not repeat in the rest of the years. 
 
 
+##### 2.3.2 Gross Profit Margin
 
+The gross profit, a total amount of revenue beyond the cost of goods sold, is of little analytical value where it represents a value in isolation. Therefore, we need to render a figure calculated concerning both revenue and cost. We will prepare a table and a chart showing a change in gross profit margin over the given interval. 
+```sql
+WITH raw_superstore AS(
+    --refer to the previous section),
+           year_monthly_figure AS(
+    --refer  to the previous section),
+           gross_profit_margin AS(
+           SELECT year,
+                  month,
+                  SUM(profit)/SUM(sales) AS gross_profit
+                  FROM raw_superstore
+                  GROUP BY year,month)
+          SELECT CONCAT(year,'-',month),
+                 ROUND(CAST(gross_profit*100 AS NUMERIC),2) AS gross_propfit_margin FROM gross_profit_margin;
+ ```
+ Companies with a higher profit margin ratio tend to become constructive in a financial position. It is a general practice to compare the firm's gross profit margin ratio to that of the industry norm. Since we do not have sufficient information about the company on the investigation, we instead use the internal average of its ratio for three years for comparison. 
 
+ 
+ ```python
+ sns.set()
+#change the name of column
+result3=result3.rename(columns={'concat':'year_month','gross_propfit_margin':'gross_profit_margin'})
+#draw a diagram 
+fig,ax=plt.subplots(figsize=(14,4))
+sns.lineplot(x=result3.year_month,y=result3.gross_profit_margin,lw=1.7,label='Monthly Gross Profit')
+plt.axhline(y=result3.gross_profit_margin.mean(),c='r',linestyle='--',label='Average of Gross Profit')
+ax.set_xticklabels(result3.year_month,rotation=90,fontsize=13)
+ax.legend()
+ax.set_xlabel('Year_Month',fontsize=14)
+ax.set_ylabel('Gross Profit Margin(%)',fontsize=14)
+ax.set_title('Gross profit Margin Over Three Consecutive Years',fontsize=20)
+```
 
+![image](https://user-images.githubusercontent.com/53164959/67909906-4a497280-fbc4-11e9-8bd6-3863a7fc8d3b.png)
+
+ The information is consistent with the interpretation we had in the previous section. Narrowing our scope to the period from January 2014 to January 2015, the variability of around the mean is quite large with figures of a majority of months underperforming the average. After spending a year of depression, financial health becomes stronger since the first quarter of 2015, which is supported by less shifting up and down around the mean.   
