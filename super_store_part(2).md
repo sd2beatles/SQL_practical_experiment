@@ -47,18 +47,17 @@ WITH raw_superstore AS(
 [chart 1] A boxplot for Sale's Revenue
 
 <img src="https://user-images.githubusercontent.com/53164959/68095938-c27ba500-fef0-11e9-8d07-4bdcf6d5a8e6.png"
- width="800" height="600">
+ width="800" height="600"/>
 
 [Chart 2] A Boxtplot for Cost of Good Sold by Product Category
 
-<img scr="https://user-images.githubusercontent.com/53164959/68095834-04f0b200-fef0-11e9-9a47-d2dca185bf11.png"
- width="800" height="600">
+![image](https://user-images.githubusercontent.com/53164959/68097197-e9d67000-fef8-11e9-829b-fa5b64e6a38a.png)
+
  
 [Chart 3] A Boxtplot for Gross profit by Product Category
 
 
-<img scr="https://user-images.githubusercontent.com/53164959/68096270-02dc2280-fef3-11e9-8cd9-782f77539100.png"
- width="800" height="600">
+![image](https://user-images.githubusercontent.com/53164959/68097124-746a9f80-fef8-11e9-977a-c861d2b5b65b.png)
 
 [Chart 4] A barplot for profit across all subcategories 
 
