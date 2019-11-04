@@ -52,7 +52,13 @@ WITH raw_superstore AS(
 
 ![image](https://user-images.githubusercontent.com/53164959/68095834-04f0b200-fef0-11e9-9a47-d2dca185bf11.png)
 
-[Chart] A Boxtplot for Gross profit by Product Category
+[Chart 3] A Boxtplot for Gross profit by Product Category
 
 
+
+
+
+
+![image](https://user-images.githubusercontent.com/53164959/68096270-02dc2280-fef3-11e9-8cd9-782f77539100.png)
+[Chart 4] A barplot for profit across all subcategories 
 
