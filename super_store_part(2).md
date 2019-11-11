@@ -37,27 +37,8 @@ WITH raw_superstore AS(
         UNION ALL SELECT category,sub_category,sales_amount,profit_amount,cost_of_good_sold  FROM sales_by_all
         UNION ALL SELECT category,sub_category,sales_amount,profit_amount,cost_of_good_sold  FROM total_sale;
 ```
-<img src="https://user-images.githubusercontent.com/53164959/68094619-afafa300-fee5-11e9-895f-3f50d7552cf1.png" alt="drawing" width="800" height="600"/>
-
-[table] A Table for Finanacial Measures
-
-<img src="https://user-images.githubusercontent.com/53164959/68096022-71b87c00-fef1-11e9-9039-2284a11bfc51.png" 
- width="800" height="600"/>
- 
-[chart 1] A boxplot for Sale's Revenue
-
-<img src="https://user-images.githubusercontent.com/53164959/68095938-c27ba500-fef0-11e9-8d07-4bdcf6d5a8e6.png"
- width="800" height="600"/>
-
-[Chart 2] A Boxtplot for Cost of Good Sold by Product Category
-
-![image](https://user-images.githubusercontent.com/53164959/68097197-e9d67000-fef8-11e9-829b-fa5b64e6a38a.png)
-
- 
-[Chart 3] A Boxtplot for Gross profit by Product Category
-
 
 ![image](https://user-images.githubusercontent.com/53164959/68097124-746a9f80-fef8-11e9-977a-c861d2b5b65b.png)
 
-[Chart 4] A barplot for profit across all subcategories 
+[Chart 1] A barplot for profit across all subcategories 
 
