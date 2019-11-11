@@ -38,7 +38,3 @@ WITH raw_superstore AS(
         UNION ALL SELECT category,sub_category,sales_amount,profit_amount,cost_of_good_sold  FROM total_sale;
 ```
 
-![image](https://user-images.githubusercontent.com/53164959/68097124-746a9f80-fef8-11e9-977a-c861d2b5b65b.png)
-
-[Chart 1] A barplot for profit across all subcategories 
-
