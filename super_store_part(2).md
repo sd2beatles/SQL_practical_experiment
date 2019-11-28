@@ -155,4 +155,13 @@ WITH aggregated_profit AS(
             FROM aggregated_profit 
 ```
 
+![image](https://user-images.githubusercontent.com/53164959/69773448-423a1e00-11d6-11ea-8b2f-627657fac062.png)
+chart 3) Profit Movement Over one year
+
+![image](https://user-images.githubusercontent.com/53164959/69773736-fdfb4d80-11d6-11ea-9915-642f4910c0f7.png)
+chart 4) Profit Movement Over the past two years
+
+![image](https://user-images.githubusercontent.com/53164959/69773842-592d4000-11d7-11ea-9a62-1fbd464f87fd.png)
+chart 5) Profit Movement Over the past three years
+
 
