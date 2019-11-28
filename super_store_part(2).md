@@ -94,12 +94,6 @@ WITH raw_superstore AS(
 
 
 
-
-
-
-
-##### 2.3.2.2 
-
 If you decide to adopt the multiple income statements,  the general practice in evaluating the financial performance of a company is to segregate expenses into two types( operating and non-operating expenses)  after subtracting revenue from the cost of goods sold. Because detailed information is not currently given, we **_consider all the expenses as a cost of goods sold_** even though the approach is not logical and reasonable.
 
 ```sql
@@ -136,4 +130,29 @@ WITH raw_superstore AS(
         UNION ALL SELECT category,sub_category,sales_amount,profit_amount,cost_of_good_sold  FROM sales_by_all
         UNION ALL SELECT category,sub_category,sales_amount,profit_amount,cost_of_good_sold  FROM total_sale;
 ```
+
+#### 2.3.3 Fan Charts
+
+From the few charts we have gone through, we come to realize that the fluctuation of profit is quite higher than we would expect it to be. Therefore, we should step further to draw another chart for the movement of the profitability of each sector. 
+
+In this section, We will use a visual tool called a fan chart joining a line graph for observed the past point with the very first date fixed as the base period. Denote our base value as 100 % and see how much the rate of each record changes in amount compared to that of the base period.
+
+On top of that, we will see the growth of profits across three separated intervals.   
+
+```sql
+WITH aggregated_profit AS(
+    SELECT SUBSTRING(order_date,1,7) AS date,
+           category,
+           SUM(profit) AS total_profit
+           FROM superstore
+           GROUP BY SUBSTRING(order_date,1,7),category)
+     SELECT date,
+            category,
+            total_profit,
+            FIRST_Value(total_profit) OVER(PARTITION BY category ORDER BY date,category ROWS UNBOUNDED PRECEDING) AS base_amount,
+            total_profit/FIRST_VALUE(total_profit) OVER(PARTITION BY category ORDER BY date,category ROWS UNBOUNDED PRECEDING)*100 
+            AS rate
+            FROM aggregated_profit 
+```
+
 
