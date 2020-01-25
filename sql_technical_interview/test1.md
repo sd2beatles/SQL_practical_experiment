@@ -15,7 +15,7 @@ SELECT city,
 # To get only one min and max, we need to place min over city, which helps us to get the first alphabetical value when 2 or more values 
    are avaialbe.
    
-3SELECT min(city) AS city,
+SELECT min(city) AS city,
        len
        FROM stats
        GROUP BY len
